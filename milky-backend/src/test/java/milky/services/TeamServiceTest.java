@@ -4,6 +4,9 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import milky.models.Team;
+import org.jboss.logging.Logger;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -13,15 +16,24 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
 public class TeamServiceTest {
 
+    private static final Logger LOGGER = Logger.getLogger(TeamServiceTest.class);
+
     @Inject
     TeamService service;
+
+    @BeforeAll
+    static void beforeQuarkusTest() {
+    }
+
+    @BeforeEach
+    void beforeEachTest() {
+    }
 
     @Test
     @Order(1)
@@ -34,21 +46,17 @@ public class TeamServiceTest {
     @Test
     @Order(2)
     public void update() {
-        List<Team> all = service.findAll();
-        Team first = all.getFirst();
-        first.setName("AI Platform Dev");
-        service.update(first);
+        Team team = service.findById(1L);
+        team.setName("AI Platform Dev");
+        service.update(team);
         assertFalse(service.findAll().isEmpty());
     }
 
     @Test
     @Order(3)
     public void delete() {
-        List<Team> all = service.findAll();
-        Team first = all.getFirst();
-        Long id = first.getId();
-        service.delete(id);
-        Team team = service.findById(id);
+        service.delete(1L);
+        Team team = service.findById(1L);
         assertNull(team);
     }
 }
