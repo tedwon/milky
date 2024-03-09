@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
@@ -31,16 +34,21 @@ public class TeamServiceTest {
     @Test
     @Order(2)
     public void update() {
-        Team team = service.findById(1L);
-        team.setName("AI Platform Dev");
-        service.update(team);
+        List<Team> all = service.findAll();
+        Team first = all.getFirst();
+        first.setName("AI Platform Dev");
+        service.update(first);
         assertFalse(service.findAll().isEmpty());
     }
 
     @Test
     @Order(3)
     public void delete() {
-        service.delete(1L);
-        assertTrue(service.findAll().isEmpty());
+        List<Team> all = service.findAll();
+        Team first = all.getFirst();
+        Long id = first.getId();
+        service.delete(id);
+        Team team = service.findById(id);
+        assertNull(team);
     }
 }
