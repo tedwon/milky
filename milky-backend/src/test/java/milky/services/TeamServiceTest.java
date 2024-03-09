@@ -12,9 +12,10 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import java.util.List;
-
+import static milky.Utils.getRandomName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
@@ -37,26 +38,26 @@ public class TeamServiceTest {
 
     @Test
     @Order(1)
-    public void create() {
-        Team team = new Team("BigData Platform Dev");
+    public void testCRUD() {
+        // creat a new team
+        final String newTeamName = getRandomName();
+        final Team team = new Team(newTeamName);
         service.create(team);
         assertFalse(service.findAll().isEmpty());
-    }
 
-    @Test
-    @Order(2)
-    public void update() {
-        Team team = service.findById(1L);
-        team.setName("AI Platform Dev");
+        // retrieve the team
+        Long id = team.getId();
+        final var retrievedTeamAfterCreation = service.findById(id);
+        assertNotNull(retrievedTeamAfterCreation);
+        assertEquals(newTeamName, retrievedTeamAfterCreation.getName());
+
+        // update the team
+        team.setName(getRandomName());
         service.update(team);
         assertFalse(service.findAll().isEmpty());
-    }
 
-    @Test
-    @Order(3)
-    public void delete() {
-        service.delete(1L);
-        Team team = service.findById(1L);
-        assertNull(team);
+        // delete the team
+        service.delete(id);
+        assertNull(service.findById(id));
     }
 }
