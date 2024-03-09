@@ -1,0 +1,31 @@
+:author:      Ted Won
+:email:        iamtedwon@gmail.com
+:toc:            left
+
+= Milky
+
+
+== milky apps
+
+* milky-frontend server app based on https://nextjs.org/[Next.js,window=_blank]
+* milky-backend server app based on https://quarkus.io/[Quarkus,window=_blank]
+
+== milky-backend server app
+
+=== Creating milky-backend server app
+
+* Install quarkus CLI via https://quarkus.io/get-started/
+* Create a new quarkus application
+** https://quarkus.io/guides/getting-started#bootstrapping-the-project
+
+[source,bash,options="nowrap"]
+----
+$ quarkus create app milky:milky-backend \
+    --extension='resteasy-reactive' \
+    --extension='resteasy-reactive-jackson' \
+    --extension='smallrye-openapi' \
+    --extension='hibernate-orm' \
+    --extension='jdbc-postgresql' \
+    --verbose
+$ cd milky-backend
+----
