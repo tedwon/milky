@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Utils {
 
-    public static String getRandomName() {
+    public static String getRandomString() {
         return UUID.randomUUID().toString();
     }
 }

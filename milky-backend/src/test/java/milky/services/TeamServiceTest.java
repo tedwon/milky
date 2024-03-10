@@ -12,11 +12,12 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import static milky.Utils.getRandomName;
+import static milky.Utils.getRandomString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -39,25 +40,27 @@ public class TeamServiceTest {
     @Test
     @Order(1)
     public void testCRUD() {
-        // creat a new team
-        final String newTeamName = getRandomName();
-        final Team team = new Team(newTeamName);
-        service.create(team);
+        // creat a new newTeam
+        final var teamName = getRandomString();
+        final Team newTeam = new Team(teamName);
+        service.create(newTeam);
         assertFalse(service.findAll().isEmpty());
 
-        // retrieve the team
-        Long id = team.getId();
-        final var retrievedTeamAfterCreation = service.findById(id);
-        assertNotNull(retrievedTeamAfterCreation);
-        assertEquals(newTeamName, retrievedTeamAfterCreation.getName());
+        // retrieve the newTeam
+        final Long id = newTeam.getId();
+        final var retrievedNewTeam = service.findById(id);
+        assertNotNull(retrievedNewTeam);
+        assertEquals(teamName, retrievedNewTeam.getName());
 
-        // update the team
-        team.setName(getRandomName());
-        service.update(team);
-        assertFalse(service.findAll().isEmpty());
+        // update the newTeam
+        final var newTeamName = getRandomString();
+        newTeam.setName(newTeamName);
+        var updatedNewTeam = service.update(newTeam);
+        assertEquals(newTeamName, updatedNewTeam.getName());
 
-        // delete the team
+        // delete the newTeam
         service.delete(id);
         assertNull(service.findById(id));
+        assertTrue(service.findAll().isEmpty());
     }
 }
