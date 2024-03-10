@@ -40,25 +40,25 @@ public class TeamServiceTest {
     @Test
     @Order(1)
     public void testCRUD() {
-        // creat a new newTeam
+        // creat a new Team
         final var teamName = getRandomString();
         final Team newTeam = new Team(teamName);
         service.create(newTeam);
         assertFalse(service.findAll().isEmpty());
 
-        // retrieve the newTeam
+        // retrieve the new Team
         final Long id = newTeam.getId();
         final var retrievedNewTeam = service.findById(id);
         assertNotNull(retrievedNewTeam);
         assertEquals(teamName, retrievedNewTeam.getName());
 
-        // update the newTeam
+        // update the new Team
         final var newTeamName = getRandomString();
         newTeam.setName(newTeamName);
         var updatedNewTeam = service.update(newTeam);
         assertEquals(newTeamName, updatedNewTeam.getName());
 
-        // delete the newTeam
+        // delete the new Team
         service.delete(id);
         assertNull(service.findById(id));
         assertTrue(service.findAll().isEmpty());
