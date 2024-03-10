@@ -1,5 +1,6 @@
 package milky;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -32,13 +33,12 @@ public class TeamResourceTest {
     @Order(1)
     public void shouldWorkForCRUD() throws Exception {
         final var teamName = getRandomString();
-        final Team newTeam = new Team(teamName);
-        final var jsonNewTeam = mapper.writeValueAsString(newTeam);
+        final var jsonTeam = getTeamAsJson(new Team(teamName));
 
         // creat a new Team
         // POST http://localhost:2403/milky/api/v1/team
-        var newTeamCreated = given()
-                .body(jsonNewTeam)
+        final var createdTeam = given()
+                .body(jsonTeam)
                 .contentType(ContentType.JSON)
                 .when()
                 .post()
@@ -47,6 +47,7 @@ public class TeamResourceTest {
                 .body("name", containsString(teamName))
                 .extract()
                 .as(Team.class);
+        final String teamId = createdTeam.getId().toString();
 
         // GET http://localhost:2403/milky/api/v1/team
         when()
@@ -57,9 +58,8 @@ public class TeamResourceTest {
 
         // retrieve the new Team
         // GET http://localhost:2403/milky/api/v1/team/1
-        final Long id = newTeamCreated.getId();
         when()
-                .get(id.toString())
+                .get(teamId)
                 .then()
                 .statusCode(Response.Status.OK.getStatusCode())
                 .body(containsString(teamName));
@@ -67,33 +67,36 @@ public class TeamResourceTest {
         // update the new Team
         // PUT http://localhost:2403/milky/api/v1/team/1
         final var newTeamName = getRandomString();
-        newTeamCreated.setName(newTeamName);
-        final var jsonUpdatedTeam = mapper.writeValueAsString(newTeamCreated);
-
-        var newTeamUpdated = given()
+        createdTeam.setName(newTeamName);
+        final var jsonUpdatedTeam = getTeamAsJson(createdTeam);
+        var updatedTeam = given()
                 .body(jsonUpdatedTeam)
                 .contentType(ContentType.JSON)
                 .when()
-                .put(id.toString())
+                .put(teamId)
                 .then()
                 .statusCode(Response.Status.OK.getStatusCode())
                 .body("name", containsString(newTeamName))
                 .extract()
                 .as(Team.class);
-        LOGGER.info(newTeamUpdated);
+        LOGGER.info(updatedTeam);
 
         // delete the new Team
         // DELETE http://localhost:2403/milky/api/v1/team/1
         when()
-                .delete(id.toString())
+                .delete(teamId)
                 .then()
                 .statusCode(Response.Status.NO_CONTENT.getStatusCode());
 
         // retrieve the new Team
         // GET http://localhost:2403/milky/api/v1/team/1
         when()
-                .get(id.toString())
+                .get(teamId)
                 .then()
                 .statusCode(Response.Status.NO_CONTENT.getStatusCode());
+    }
+
+    private String getTeamAsJson(Team team) throws JsonProcessingException {
+        return mapper.writeValueAsString(team);
     }
 }
