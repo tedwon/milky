@@ -41,6 +41,9 @@ public class TeamResource {
         return service.findAll();
     }
 
+    /**
+     * e.g. http://localhost:2403/milky/api/v1/team/1
+     */
     @GET
     @Path("{id}")
     public Team findById(Long id) {
