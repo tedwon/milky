@@ -31,7 +31,7 @@ public class TeamResourceTest {
 
     @Test
     @Order(1)
-    public void shouldWorkForCRUD() throws Exception {
+    public void restAPIs_should_work_for_CRUD() throws Exception {
         final var teamName = getRandomString();
         final var jsonTeam = getTeamAsJson(new Team(teamName));
 
