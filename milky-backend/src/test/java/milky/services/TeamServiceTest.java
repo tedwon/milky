@@ -39,7 +39,7 @@ public class TeamServiceTest {
 
     @Test
     @Order(1)
-    public void testCRUD() {
+    public void shouldWorkForCRUD() {
         // creat a new Team
         final var teamName = getRandomString();
         final Team newTeam = new Team(teamName);
