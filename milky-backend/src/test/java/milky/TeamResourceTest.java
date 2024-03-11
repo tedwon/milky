@@ -37,14 +37,15 @@ public class TeamResourceTest {
 
         // creat a new Team
         // POST http://localhost:2403/milky/api/v1/team
-        final var createdTeam = given()
-                .body(jsonTeam)
-                .contentType(ContentType.JSON)
-                .when().post()
-                .then()
-                .statusCode(Response.Status.CREATED.getStatusCode())
-                .body("name", containsString(teamName))
-                .extract().as(Team.class);
+        final var createdTeam =
+                given()
+                        .body(jsonTeam)
+                        .contentType(ContentType.JSON)
+                        .when().post()
+                        .then()
+                        .statusCode(Response.Status.CREATED.getStatusCode())
+                        .body("name", containsString(teamName))
+                        .extract().as(Team.class);
         final var teamId = createdTeam.getId().toString();
 
         // GET http://localhost:2403/milky/api/v1/team
@@ -68,14 +69,15 @@ public class TeamResourceTest {
 
         // update the new Team
         // PUT http://localhost:2403/milky/api/v1/team/1
-        final var updatedTeam = given()
-                .body(jsonUpdatedTeam)
-                .contentType(ContentType.JSON)
-                .when().put(teamId)
-                .then()
-                .statusCode(Response.Status.OK.getStatusCode())
-                .body("name", containsString(newTeamName))
-                .extract().as(Team.class);
+        final var updatedTeam =
+                given()
+                        .body(jsonUpdatedTeam)
+                        .contentType(ContentType.JSON)
+                        .when().put(teamId)
+                        .then()
+                        .statusCode(Response.Status.OK.getStatusCode())
+                        .body("name", containsString(newTeamName))
+                        .extract().as(Team.class);
         LOGGER.info(updatedTeam);
 
         // delete the new Team
