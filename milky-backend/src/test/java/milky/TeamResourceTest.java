@@ -64,11 +64,12 @@ public class TeamResourceTest {
                 .statusCode(Response.Status.OK.getStatusCode())
                 .body(containsString(teamName));
 
-        // update the new Team
-        // PUT http://localhost:2403/milky/api/v1/team/1
         final var newTeamName = getRandomString();
         createdTeam.setName(newTeamName);
         final var jsonUpdatedTeam = getTeamAsJson(createdTeam);
+
+        // update the new Team
+        // PUT http://localhost:2403/milky/api/v1/team/1
         final var updatedTeam = given()
                 .body(jsonUpdatedTeam)
                 .contentType(ContentType.JSON)
