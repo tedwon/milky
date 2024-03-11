@@ -1,4 +1,4 @@
-package milky;
+package milky.utils;
 
 import java.util.UUID;
 

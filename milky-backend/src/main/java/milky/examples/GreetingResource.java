@@ -1,4 +1,4 @@
-package milky;
+package milky.examples;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

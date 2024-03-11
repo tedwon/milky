@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import static milky.Utils.getRandomString;
+import static milky.utils.Utils.getRandomString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -39,12 +39,13 @@ public class TeamServiceTest {
 
     @Test
     @Order(1)
-    public void shouldWorkForCRUD() {
+    public void service_should_work_for_CRUD() {
         // creat a new Team
         final var teamName = getRandomString();
         final Team newTeam = new Team(teamName);
         service.create(newTeam);
         assertFalse(service.findAll().isEmpty());
+        assertFalse(service.findByCustomCriteria(teamName).isEmpty());
 
         // retrieve the new Team
         final Long id = newTeam.getId();

@@ -1,4 +1,4 @@
-package milky;
+package milky.examples;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 

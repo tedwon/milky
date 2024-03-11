@@ -1,4 +1,4 @@
-package milky;
+package milky.callback;
 
 import io.quarkus.test.junit.callback.QuarkusTestBeforeClassCallback;
 import org.jboss.logging.Logger;
