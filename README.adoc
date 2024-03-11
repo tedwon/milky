@@ -10,9 +10,9 @@
 * milky-frontend server app based on https://nextjs.org/[Next.js,window=_blank]
 * milky-backend server app based on https://quarkus.io/[Quarkus,window=_blank]
 
-== milky-backend server app
+=== milky-backend server app
 
-=== Creating milky-backend server app
+==== Creating milky-backend server app
 
 * Install quarkus CLI via https://quarkus.io/get-started/
 * Create a new quarkus application
@@ -30,9 +30,9 @@ $ quarkus create app milky:milky-backend \
 $ cd milky-backend
 ----
 
-== milky-frontend
+=== milky-frontend
 
-=== Create milky-frontend server app
+==== Create milky-frontend server app
 
 * Install Node.js as guided in https://nextjs.org/docs/getting-started/installation
 * Create a new Next.js app
@@ -97,12 +97,12 @@ npm run dev
 * Visit http://localhost:3000
 
 
-== milky DB Container
+=== milky DB Container
 
 * Use PostgreSQL image
 ** https://hub.docker.com/_/postgres
 
-=== Run milky DB as a Container
+==== Run milky DB as a Container
 
 [source,bash,options="nowrap"]
 ----
