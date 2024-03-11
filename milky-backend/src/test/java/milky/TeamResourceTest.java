@@ -58,7 +58,7 @@ public class TeamResourceTest {
                 .statusCode(Response.Status.OK.getStatusCode())
                 .body(containsString(teamName));
 
-        // GET http://127.0.0.1:2403/milky/api/v1/team/search?keyword=myteamname
+        // GET http://127.0.0.1:2403/milky/api/v1/team/search?keyword=teamName
         final List<Team> searchResult =
                 given()
                         .queryParam("keyword", teamName)
