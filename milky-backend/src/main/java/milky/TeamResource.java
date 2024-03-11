@@ -13,6 +13,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -45,6 +46,19 @@ public class TeamResource {
     }
 
     /**
+     * e.g. GET http://127.0.0.1:2403/milky/api/v1/team/search?keyword=myteamname
+     */
+    @GET
+    @Path("search")
+    public List<Team> findByCustomCriteria(@QueryParam("keyword") String keyword) {
+        final var paramsLog = new StringBuilder("findByCriteria:\n");
+        paramsLog.append("keyword=");
+        paramsLog.append(keyword);
+        LOGGER.info(paramsLog);
+        return service.findByCustomCriteria(keyword);
+    }
+
+    /**
      * e.g. GET http://localhost:2403/milky/api/v1/team/1
      */
     @GET
@@ -61,9 +75,9 @@ public class TeamResource {
     public Response create(Team team) {
         final int code = 201;
         if (team.getId() != null) {
-            /**
-             * HTTP 422 Unprocessable Content
-             * See https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422
+            /*
+              HTTP 422 Unprocessable Content
+              See https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422
              */
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }

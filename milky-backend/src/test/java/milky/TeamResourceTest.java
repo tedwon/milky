@@ -14,9 +14,12 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
-import static milky.Utils.getRandomString;
+import static io.smallrye.common.constraint.Assert.assertTrue;
+import static milky.utils.Utils.getRandomString;
 import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
@@ -55,6 +58,19 @@ public class TeamResourceTest {
                 .statusCode(Response.Status.OK.getStatusCode())
                 .body(containsString(teamName));
 
+        // GET http://127.0.0.1:2403/milky/api/v1/team/search?keyword=myteamname
+        final List<Team> searchResult =
+                given()
+                        .queryParam("keyword", teamName)
+                        .when()
+                        .get("search")
+                        .then()
+                        .statusCode(Response.Status.OK.getStatusCode())
+                        .body(containsString(teamName))
+                        .body("size()", org.hamcrest.Matchers.greaterThanOrEqualTo(1))
+                        .extract().as(List.class);
+        assertTrue(searchResult.size() == 1);
+
         // retrieve the new Team
         // GET http://localhost:2403/milky/api/v1/team/1
         when()
@@ -69,16 +85,13 @@ public class TeamResourceTest {
 
         // update the new Team
         // PUT http://localhost:2403/milky/api/v1/team/1
-        final var updatedTeam =
-                given()
+        given()
                         .body(jsonUpdatedTeam)
                         .contentType(ContentType.JSON)
                         .when().put(teamId)
                         .then()
                         .statusCode(Response.Status.OK.getStatusCode())
-                        .body("name", containsString(newTeamName))
-                        .extract().as(Team.class);
-        LOGGER.info(updatedTeam);
+                        .body("name", containsString(newTeamName));
 
         // delete the new Team
         // DELETE http://localhost:2403/milky/api/v1/team/1
