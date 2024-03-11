@@ -30,6 +30,71 @@ $ quarkus create app milky:milky-backend \
 $ cd milky-backend
 ----
 
+== milky-frontend
+
+* Install Node.js as guided in https://nextjs.org/docs/getting-started/installation
+* Create a new Next.js app
+
+[source,bash,options="nowrap"]
+----
+$ npx create-next-app@latest
+Need to install the following packages:
+create-next-app@14.1.3
+Ok to proceed? (y) y
+✔ What is your project named? … milky-frontend
+✔ Would you like to use TypeScript? … No / Yes
+✔ Would you like to use ESLint? … No / Yes
+✔ Would you like to use Tailwind CSS? … No / Yes
+✔ Would you like to use `src/` directory? … No / Yes
+✔ Would you like to use App Router? (recommended) … No / Yes
+✔ Would you like to customize the default import alias (@/*)? … No / Yes
+Creating a new Next.js app in /private/tmp/milky-frontend.
+
+Using npm.
+
+Initializing project with template: app-tw
+
+
+Installing dependencies:
+- react
+- react-dom
+- next
+
+Installing devDependencies:
+- typescript
+- @types/node
+- @types/react
+- @types/react-dom
+- autoprefixer
+- postcss
+- tailwindcss
+- eslint
+- eslint-config-next
+
+
+added 366 packages, and audited 367 packages in 42s
+
+132 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+Initialized a git repository.
+
+Success! Created milky-frontend at /private/tmp/milky-frontend
+----
+
+* Run milky-frontend app in dev mode
+** https://nextjs.org/docs/getting-started/installation#run-the-development-server
+
+[source,bash,options="nowrap"]
+----
+cd milky-frontend
+npm run dev
+----
+
+* Visit http://localhost:3000
+
+
 == milky DB Container
 
 * Use PostgreSQL image
