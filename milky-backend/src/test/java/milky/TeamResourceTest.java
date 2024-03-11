@@ -47,7 +47,7 @@ public class TeamResourceTest {
                 .body("name", containsString(teamName))
                 .extract()
                 .as(Team.class);
-        final String teamId = createdTeam.getId().toString();
+        final var teamId = createdTeam.getId().toString();
 
         // GET http://localhost:2403/milky/api/v1/team
         when()
@@ -69,7 +69,7 @@ public class TeamResourceTest {
         final var newTeamName = getRandomString();
         createdTeam.setName(newTeamName);
         final var jsonUpdatedTeam = getTeamAsJson(createdTeam);
-        var updatedTeam = given()
+        final var updatedTeam = given()
                 .body(jsonUpdatedTeam)
                 .contentType(ContentType.JSON)
                 .when()
