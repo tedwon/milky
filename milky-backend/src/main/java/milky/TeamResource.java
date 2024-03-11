@@ -36,13 +36,16 @@ public class TeamResource {
     @Inject
     TeamService service;
 
+    /**
+     * e.g. GET http://localhost:2403/milky/api/v1/team
+     */
     @GET
     public List<Team> findAll() {
         return service.findAll();
     }
 
     /**
-     * e.g. http://localhost:2403/milky/api/v1/team/1
+     * e.g. GET http://localhost:2403/milky/api/v1/team/1
      */
     @GET
     @Path("{id}")
@@ -50,6 +53,9 @@ public class TeamResource {
         return service.findById(id);
     }
 
+    /**
+     * POST http://localhost:2403/milky/api/v1/team
+     */
     @POST
     @Transactional
     public Response create(Team team) {
@@ -61,6 +67,9 @@ public class TeamResource {
         return Response.ok(team).status(code).build();
     }
 
+    /**
+     * e.g. PUT http://localhost:2403/milky/api/v1/team/1
+     */
     @PUT
     @Path("{id}")
     @Transactional
@@ -76,6 +85,9 @@ public class TeamResource {
         return entity;
     }
 
+    /**
+     * e.g. DELETE http://localhost:2403/milky/api/v1/team/1
+     */
     @DELETE
     @Path("{id}")
     @Transactional
