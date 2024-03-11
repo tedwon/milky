@@ -40,13 +40,11 @@ public class TeamResourceTest {
         final var createdTeam = given()
                 .body(jsonTeam)
                 .contentType(ContentType.JSON)
-                .when()
-                .post()
+                .when().post()
                 .then()
                 .statusCode(Response.Status.CREATED.getStatusCode())
                 .body("name", containsString(teamName))
-                .extract()
-                .as(Team.class);
+                .extract().as(Team.class);
         final var teamId = createdTeam.getId().toString();
 
         // GET http://localhost:2403/milky/api/v1/team
@@ -73,13 +71,11 @@ public class TeamResourceTest {
         final var updatedTeam = given()
                 .body(jsonUpdatedTeam)
                 .contentType(ContentType.JSON)
-                .when()
-                .put(teamId)
+                .when().put(teamId)
                 .then()
                 .statusCode(Response.Status.OK.getStatusCode())
                 .body("name", containsString(newTeamName))
-                .extract()
-                .as(Team.class);
+                .extract().as(Team.class);
         LOGGER.info(updatedTeam);
 
         // delete the new Team
