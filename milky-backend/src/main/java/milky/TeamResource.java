@@ -61,6 +61,10 @@ public class TeamResource {
     public Response create(Team team) {
         final int code = 201;
         if (team.getId() != null) {
+            /**
+             * HTTP 422 Unprocessable Content
+             * See https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422
+             */
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
         service.create(team);
