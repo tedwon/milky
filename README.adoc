@@ -32,6 +32,8 @@ $ cd milky-backend
 
 == milky-frontend
 
+=== Create milky-frontend server app
+
 * Install Node.js as guided in https://nextjs.org/docs/getting-started/installation
 * Create a new Next.js app
 
