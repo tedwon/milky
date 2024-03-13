@@ -85,6 +85,14 @@ Initialized a git repository.
 Success! Created milky-frontend at /private/tmp/milky-frontend
 ----
 
+* Install packages
+
+[source,bash,options="nowrap"]
+----
+cd milky-frontend
+npm install @mui/material @emotion/react @mui/x-data-grid @emotion/styled
+----
+
 * Run milky-frontend app in dev mode
 ** https://nextjs.org/docs/getting-started/installation#run-the-development-server
 
