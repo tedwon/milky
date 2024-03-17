@@ -34,7 +34,7 @@ export default function DataGridDemo() {
 
     const [teams, setTeams] = useState<Team[]>([]);
 
-    // Retrieve All Offerings from the backend-server
+    // Retrieve All data from the backend-server
     // Note: the empty deps array [] means
     // this useEffect will run once
     // similar to componentDidMount()
