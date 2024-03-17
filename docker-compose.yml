@@ -11,5 +11,5 @@ services:
     environment:
       TZ: Australia/Brisbane
       POSTGRES_USER: milky
-      POSTGRES_PASSWORD: milky
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: milky_db
