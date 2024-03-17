@@ -14,7 +14,7 @@
 
 ==== OpenAPI (Swagger UI)
 
-http://localhost:2403/q/swagger-ui/
+* http://localhost:2403/q/swagger-ui/
 
 
 ==== Creating milky-backend server app
