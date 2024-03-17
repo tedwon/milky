@@ -12,6 +12,11 @@
 
 === milky-backend server app
 
+==== OpenAPI (Swagger UI)
+
+http://localhost:2403/q/swagger-ui/
+
+
 ==== Creating milky-backend server app
 
 * Install quarkus CLI via https://quarkus.io/get-started/
@@ -123,7 +128,22 @@ $ docker run --rm=true -itd \
            -e POSTGRES_USER=milky \
            -e POSTGRES_PASSWORD=milky \
            -e POSTGRES_DB=milky_db \
-           -p 5433:5432 \
+           -p 5434:5432 \
            --network milky_net \
            postgres:latest
+----
+
+==== Start Milky with Docker Compose
+
+[source,bash,options="nowrap"]
+----
+$ docker-compose -f docker-compose.yml up -d
+----
+
+
+===== Stop Milky with Docker Compose
+
+[source,bash,options="nowrap"]
+----
+$ docker-compose -f docker-compose.yml down
 ----

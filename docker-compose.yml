@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  milky-db:
+    image: postgres:latest
+    container_name: "milky-db"
+    volumes:
+      - /var/db_data/milky_db_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    restart: always
+    environment:
+      TZ: Australia/Brisbane
+      POSTGRES_USER: milky
+      POSTGRES_PASSWORD: milky
+      POSTGRES_DB: milky_db
