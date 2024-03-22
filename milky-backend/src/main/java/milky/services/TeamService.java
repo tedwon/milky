@@ -12,8 +12,6 @@ import java.util.List;
 @ApplicationScoped
 public class TeamService {
 
-    private static final Logger LOGGER = Logger.getLogger(TeamService.class);
-
     @Inject
     EntityManager entityManager;
 
@@ -46,12 +44,12 @@ public class TeamService {
         return entityManager.find(Team.class, id);
     }
 
-    public void create(Team offering) {
-        entityManager.persist(offering);
+    public void create(Team entity) {
+        entityManager.persist(entity);
     }
 
-    public Team update(Team offering) {
-        return entityManager.merge(offering);
+    public Team update(Team entity) {
+        return entityManager.merge(entity);
     }
 
     public void delete(Long id) {
